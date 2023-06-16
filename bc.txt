@@ -1,0 +1,89 @@
+---Bank---
+
+// SPDX-License-Identifier: MIT
+// BAnking Solidity Smart Contract for Deposit,Withdrawl,Check Balance
+
+pragma solidity^0.8.0;
+
+contract Bank {
+    mapping(address => uint256) balances;
+
+    function deposit() public payable  {
+        balances[msg.sender] += msg.value;
+    }
+
+    function withdraw(uint256 amount) public  {
+        require(balances[msg.sender] >= amount,"Insufficient balance");
+        balances[msg.sender] -= amount;
+        payable(msg.sender).transfer(amount);
+    }
+
+    function balance() public view returns(uint256)  {
+        return balances[msg.sender];
+    }
+}
+
+
+----randomNo---
+
+// SPDX-License-Identifier:MIT
+pragma solidity^0.8.0;
+
+contract RandomNumberGenerator{
+    uint private nonce;
+
+    function random() public returns (uint) {
+        nonce++;
+        uint randomNumber = uint(keccak256(abi.encodePacked(nonce,block.timestamp,block.prevrandao)))%100;
+        return randomNumber;
+    }
+}
+
+
+----bonus---
+
+// SPDX-License-Identifier:MIT
+pragma solidity^0.8.0; 
+
+contract BonusCalc{ 
+    function bonusCalculate(uint _value) public pure returns(uint) {
+        if(_value <= 50) { 
+            return 250;
+        }
+        else if (_value >= 100) { 
+            return 500;
+        }
+        return _value;
+    }
+}
+
+
+----print---
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+
+contract Print {
+    string data = "O P Jindal University";
+    function result () public view returns (string memory){
+        return data;
+    }
+}
+    
+
+
+---evenodd---
+
+// SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+contract EvenOdd{
+    function calculate(uint256 _value) public pure returns(string memory) {
+        if(_value%2==0) {
+            return "even";
+            }
+        else { 
+            return "odd";
+        }
+        
+    }
+}
